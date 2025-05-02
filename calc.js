@@ -55,19 +55,16 @@ function operation() {
 }
 
 function inputDigit(digit) {
-    if (operator || b.length > 0) {
-        if (digit == OP_DOT && b.length != 1) {
-            b.push("0");
-        }
-        b.push(digit);
-    } else {
-        if (a[0] == "0" && digit != OP_DOT) {
-            if (digit != "0") {
-                a[0] = digit;
-            }
-        } else {
-            a.push(digit);
-        }
+    let variable = (operator && operator != OP_EQU) ? b : a;
+    if (digit == OP_DOT && variable.includes(OP_DOT)) {
+        return;
+    }
+    variable.push(digit);
+    if (variable[0] == "0" && variable.length == 2 && variable[1] != OP_DOT) {
+        variable.shift();
+    }
+    if (variable[0] == ".") {
+        variable.unshift("0");
     }
     updateDisplay();
 }
