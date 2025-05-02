@@ -4,8 +4,10 @@ const OP_ADD = "+";
 const OP_SUB = "-";
 const OP_MUL = "*";
 const OP_DIV = "/";
-const OP_EQU = "=";
 const OPERATORS = [OP_ADD, OP_SUB, OP_MUL, OP_DIV];
+
+const OP_EQU = "=";
+const OP_DOT = ".";
 
 let a = ["0"];
 let b = [];
@@ -54,9 +56,12 @@ function operation() {
 
 function inputDigit(digit) {
     if (operator || b.length > 0) {
+        if (digit == OP_DOT && b.length != 1) {
+            b.push("0");
+        }
         b.push(digit);
     } else {
-        if (a[0] == "0") {
+        if (a[0] == "0" && digit != OP_DOT) {
             if (digit != "0") {
                 a[0] = digit;
             }
@@ -75,6 +80,10 @@ function inputOperator(newOperator) {
 
 function backspace() {
     if(b.length > 0) {
+        console.log(b);
+        if (b[0] == "0" && b[1] == ".") { 
+            b.pop(); 
+        }
         b.pop();
         updateDisplay();
         return;
@@ -108,8 +117,6 @@ function updateDisplay() {
     dispStr += operator && operator != OP_EQU ? ` ${operator} ` : "";
     dispStr += b.join("");
     DISPLAY.innerText = dispStr;
-
-    console.log(a.length);
 }
 
 document.getElementById("btn-0").addEventListener("click", () => inputDigit("0"));
@@ -122,7 +129,7 @@ document.getElementById("btn-6").addEventListener("click", () => inputDigit("6")
 document.getElementById("btn-7").addEventListener("click", () => inputDigit("7"));
 document.getElementById("btn-8").addEventListener("click", () => inputDigit("8"));
 document.getElementById("btn-9").addEventListener("click", () => inputDigit("9"));
-document.getElementById("btn-dot").addEventListener("click", () => inputDigit("."));
+document.getElementById("btn-dot").addEventListener("click", () => inputDigit(OP_DOT));
 
 document.getElementById("btn-add").addEventListener("click", () => inputOperator(OP_ADD));
 document.getElementById("btn-sub").addEventListener("click", () => inputOperator(OP_SUB));
