@@ -70,6 +70,7 @@ function inputDigit(digit) {
 }
 
 function inputOperator(newOperator) {
+    if (a[a.length-1] == OP_DOT) { a.pop(); }
     if (operator && b.length > 0) { operation(); }
     operator = newOperator;
     updateDisplay();
