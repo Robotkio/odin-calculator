@@ -9,7 +9,7 @@ const OPERATORS = [OP_ADD, OP_SUB, OP_MUL, OP_DIV];
 
 let a = ["0"];
 let b = [];
-let operator; // for user input
+let operator; // for user input operator
 
 function add(a, b) {
     return a + b;
@@ -68,7 +68,7 @@ function inputDigit(digit) {
 }
 
 function inputOperator(newOperator) {
-    operation();
+    if (operator && b.length > 0) { operation(); }
     operator = newOperator;
     updateDisplay();
 }
@@ -114,8 +114,19 @@ function updateDisplay() {
 
 document.getElementById("btn-0").addEventListener("click", () => inputDigit("0"));
 document.getElementById("btn-1").addEventListener("click", () => inputDigit("1"));
+document.getElementById("btn-2").addEventListener("click", () => inputDigit("2"));
+document.getElementById("btn-3").addEventListener("click", () => inputDigit("3"));
+document.getElementById("btn-4").addEventListener("click", () => inputDigit("4"));
+document.getElementById("btn-5").addEventListener("click", () => inputDigit("5"));
+document.getElementById("btn-6").addEventListener("click", () => inputDigit("6"));
+document.getElementById("btn-7").addEventListener("click", () => inputDigit("7"));
+document.getElementById("btn-8").addEventListener("click", () => inputDigit("8"));
+document.getElementById("btn-9").addEventListener("click", () => inputDigit("9"));
 
 document.getElementById("btn-add").addEventListener("click", () => inputOperator(OP_ADD));
+document.getElementById("btn-sub").addEventListener("click", () => inputOperator(OP_SUB));
+document.getElementById("btn-div").addEventListener("click", () => inputOperator(OP_DIV));
+document.getElementById("btn-mul").addEventListener("click", () => inputOperator(OP_MUL));
 document.getElementById("btn-equ").addEventListener("click", () => inputOperator(OP_EQU));
 
 document.getElementById("btn-und").addEventListener("click", backspace);
