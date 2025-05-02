@@ -122,6 +122,7 @@ document.getElementById("btn-6").addEventListener("click", () => inputDigit("6")
 document.getElementById("btn-7").addEventListener("click", () => inputDigit("7"));
 document.getElementById("btn-8").addEventListener("click", () => inputDigit("8"));
 document.getElementById("btn-9").addEventListener("click", () => inputDigit("9"));
+document.getElementById("btn-dot").addEventListener("click", () => inputDigit("."));
 
 document.getElementById("btn-add").addEventListener("click", () => inputOperator(OP_ADD));
 document.getElementById("btn-sub").addEventListener("click", () => inputOperator(OP_SUB));
