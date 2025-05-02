@@ -1,3 +1,5 @@
+const DISPLAY = document.getElementById("display");
+const DISP_ARR = [];
 const OP_ADD = "+";
 const OP_SUB = "-";
 const OP_MUL = "*";
@@ -35,3 +37,27 @@ function operation(a, b, operator) {
         case OP_DIV: return divide(a, b);
     }
 }
+
+function displayPush(str) {
+    DISP_ARR.push(str);
+    updateDisplay();
+}
+
+function displayPop() {
+    DISP_ARR.pop();
+    updateDisplay();
+}
+
+function displayClear() {
+    DISP_ARR.length = 0;
+    updateDisplay();
+}
+
+function updateDisplay() {
+    DISPLAY.innerText = DISP_ARR.join(" ");
+}
+
+document.getElementById("btn-0").addEventListener("click", () => displayPush("0"));
+
+document.getElementById("btn-und").addEventListener("click", displayPop);
+document.getElementById("btn-clr").addEventListener("click", displayClear);
