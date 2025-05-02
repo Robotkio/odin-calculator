@@ -2,7 +2,8 @@ const OP_ADD = "+";
 const OP_SUB = "-";
 const OP_MUL = "*";
 const OP_DIV = "/";
-const operators = [OP_ADD, OP_SUB, OP_MUL, OP_DIV];
+const OP_EQU = "=";
+const operators = [OP_ADD, OP_SUB, OP_MUL, OP_DIV, OP_EQU];
 
 let a, b, operator; // for user input
 
