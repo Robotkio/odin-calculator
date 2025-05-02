@@ -25,7 +25,7 @@ function divide(a, b) {
 function operation(a, b, operator) {
     if (isNaN(a) || 
         isNaN(b) || 
-        operators.includes(operator)) {
+        !operators.includes(operator)) {
         return NaN;
     }
     switch (operator) {
