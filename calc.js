@@ -25,11 +25,6 @@ function divide(a, b) {
 }
 
 function operation(a, b, operator) {
-    if (isNaN(a) || 
-        isNaN(b) || 
-        !operators.includes(operator)) {
-        return NaN;
-    }
     switch (operator) {
         case OP_ADD: return add(a, b);
         case OP_SUB: return subtract(a, b);
