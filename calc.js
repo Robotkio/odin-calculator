@@ -2,8 +2,8 @@ const DISPLAY = document.getElementById("display");
 const DISP_ARR = [];
 const OP_ADD = "+";
 const OP_SUB = "-";
-const OP_MUL = "*";
-const OP_DIV = "/";
+const OP_MUL = "&times;";
+const OP_DIV = "&divide;";
 const OPERATORS = [OP_ADD, OP_SUB, OP_MUL, OP_DIV];
 
 const OP_EQU = "=";
@@ -12,6 +12,10 @@ const OP_DOT = ".";
 let a = ["0"];
 let b = [];
 let operator; // for user input operator
+
+updateDisplay();
+
+/* functions */
 
 function add(a, b) {
     return a + b;
@@ -114,8 +118,10 @@ function updateDisplay() {
     dispStr += a.join("");
     dispStr += operator && operator != OP_EQU ? ` ${operator} ` : "";
     dispStr += b.join("");
-    DISPLAY.innerText = dispStr;
+    DISPLAY.innerHTML = dispStr;
 }
+
+/* button click listeners */
 
 document.getElementById("btn-0").addEventListener("click", () => inputDigit("0"));
 document.getElementById("btn-1").addEventListener("click", () => inputDigit("1"));
@@ -138,4 +144,33 @@ document.getElementById("btn-equ").addEventListener("click", () => inputOperator
 document.getElementById("btn-und").addEventListener("click", backspace);
 document.getElementById("btn-clr").addEventListener("click", displayClear);
 
-updateDisplay();
+/* keyboard listeners */
+
+document.addEventListener("keyup", (e) => {
+    switch (e.key) {
+        case "0": inputDigit("0"); break;
+        case "1": inputDigit("1"); break;
+        case "2": inputDigit("2"); break;
+        case "3": inputDigit("3"); break;
+        case "4": inputDigit("4"); break;
+        case "5": inputDigit("5"); break;
+        case "6": inputDigit("6"); break;
+        case "7": inputDigit("7"); break;
+        case "8": inputDigit("8"); break;
+        case "9": inputDigit("9"); break;
+        case ".": inputDigit(OP_DOT); break;
+        case "+": inputOperator(OP_ADD); break;
+        case "-": inputOperator(OP_SUB); break;
+        case "*": inputOperator(OP_MUL); break;
+        case "/": inputOperator(OP_DIV); break;
+        case "Backspace":
+        case "Delete":
+            backspace();
+            break;
+        case "Enter": inputOperator(OP_EQU); break;
+        case "c": displayClear(); break;
+        default:
+            // it's ok to do nothing
+            break;
+    }
+});
