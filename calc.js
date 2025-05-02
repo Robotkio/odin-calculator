@@ -4,9 +4,12 @@ const OP_ADD = "+";
 const OP_SUB = "-";
 const OP_MUL = "*";
 const OP_DIV = "/";
-const operators = [OP_ADD, OP_SUB, OP_MUL, OP_DIV];
+const OPERATORS = [OP_ADD, OP_SUB, OP_MUL, OP_DIV];
+const DEFAULT_A = ["0"];
 
-let a, b, operator; // for user input
+let a = DEFAULT_A;
+let b = [];
+let operator; // for user input
 
 function add(a, b) {
     return a + b;
@@ -33,26 +36,50 @@ function operation(a, b, operator) {
     }
 }
 
-function displayPush(str) {
-    DISP_ARR.push(str);
+function inputDigit(digit) {
+    if (operator) {
+        b.push(digit);
+    } else {
+        if (b) {
+            b.push(digit);
+        } else {
+            a.push(digit);
+        }
+    }
     updateDisplay();
 }
 
-function displayPop() {
-    DISP_ARR.pop();
+function backspace() {
+    if(b.length > 0) {
+        b.pop();
+    } else if (operator) {
+        operator = undefined;
+    } else if (a.length > 1) {
+        a.pop();
+    } else {
+        a = DEFAULT_A;
+    }
     updateDisplay();
 }
 
 function displayClear() {
-    DISP_ARR.length = 0;
+    a = DEFAULT_A;
+    b.length = 0;
+    operator = undefined;
     updateDisplay();
 }
 
 function updateDisplay() {
-    DISPLAY.innerText = DISP_ARR.join(" ");
+    let dispStr = "";
+    dispStr += a.join("");
+    dispStr += operator ? ` ${operator} ` : "";
+    dispStr += b.join("");
+    DISPLAY.innerText = dispStr;
 }
 
-document.getElementById("btn-0").addEventListener("click", () => displayPush("0"));
+document.getElementById("btn-0").addEventListener("click", () => inputDigit("0"));
 
-document.getElementById("btn-und").addEventListener("click", displayPop);
+document.getElementById("btn-und").addEventListener("click", backspace);
 document.getElementById("btn-clr").addEventListener("click", displayClear);
+
+updateDisplay();
