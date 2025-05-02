@@ -5,9 +5,8 @@ const OP_SUB = "-";
 const OP_MUL = "*";
 const OP_DIV = "/";
 const OPERATORS = [OP_ADD, OP_SUB, OP_MUL, OP_DIV];
-const DEFAULT_A = ["0"];
 
-let a = DEFAULT_A;
+let a = ["0"];
 let b = [];
 let operator; // for user input
 
@@ -40,10 +39,16 @@ function inputDigit(digit) {
     if (operator) {
         b.push(digit);
     } else {
-        if (b) {
+        if (b.length > 0) {
             b.push(digit);
         } else {
-            a.push(digit);
+            if (a[0] == "0") {
+                if (digit != "0") {
+                    a[0] = digit;
+                }
+            } else {
+                a.push(digit);
+            }
         }
     }
     updateDisplay();
@@ -57,13 +62,13 @@ function backspace() {
     } else if (a.length > 1) {
         a.pop();
     } else {
-        a = DEFAULT_A;
+        a = ["0"];
     }
     updateDisplay();
 }
 
 function displayClear() {
-    a = DEFAULT_A;
+    a = ["0"];
     b.length = 0;
     operator = undefined;
     updateDisplay();
@@ -78,6 +83,7 @@ function updateDisplay() {
 }
 
 document.getElementById("btn-0").addEventListener("click", () => inputDigit("0"));
+document.getElementById("btn-1").addEventListener("click", () => inputDigit("1"));
 
 document.getElementById("btn-und").addEventListener("click", backspace);
 document.getElementById("btn-clr").addEventListener("click", displayClear);
