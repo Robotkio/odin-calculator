@@ -80,6 +80,10 @@ function inputDigit(digit) {
     updateDisplay();
 }
 
+/* inputs the operator
+   if the last character of a is a decimal, remove it
+   if there's already an operator and b has numbers, perform a calculation
+   then input the new operator */
 function inputOperator(newOperator) {
     if (a[a.length-1] == OP_DOT) { a.pop(); }
     if (operator && b.length > 0) { operation(); }
