@@ -29,7 +29,7 @@ body {
     font-family: Courier, monospace;
     font-size: 32px;
     padding: 5px;
-    direction: rtl;
+    text-align: right;
 }
 
 #keypad {

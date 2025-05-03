@@ -1,11 +1,7 @@
-const DISPLAY = document.getElementById("display");
-const DISP_ARR = [];
 const OP_ADD = "+";
 const OP_SUB = "-";
 const OP_MUL = "&times;";
 const OP_DIV = "&divide;";
-const OPERATORS = [OP_ADD, OP_SUB, OP_MUL, OP_DIV];
-
 const OP_EQU = "=";
 const OP_DOT = ".";
 
@@ -33,6 +29,11 @@ function divide(a, b) {
     return a / b;
 }
 
+/* performs whatever operation exists on the variables as they are
+   first, a and b are converted to numbers
+   then the formula is performed
+   then the number is converted back to an array and stored in a
+   the operator and b are cleared */
 function operation() {
     let numA = Number(a.join(""));
     let numB = Number(b.join(""));
@@ -58,6 +59,12 @@ function operation() {
     b.length = 0;
 }
 
+/* takes a digit and places it into a variable.
+   if there's an operator the digit goes in b, otherwise it goes in a
+   ignore adding decimals if the variable already has one
+   then just add the digit to the relevant variable
+   after that remove a leading 0 if it doesn't need to be there (ie 0123)
+   after that add a leading 0 if it should be there (ie 0.123) */
 function inputDigit(digit) {
     let variable = (operator && operator != OP_EQU) ? b : a;
     if (digit == OP_DOT && variable.includes(OP_DOT)) {
@@ -80,9 +87,12 @@ function inputOperator(newOperator) {
     updateDisplay();
 }
 
+/* removes the rightmost character
+   if b exists: take from b, if there's an operator: take the operator
+   lastly, take from a. If there's 1 or no digit to take from a, leave
+   it at 0 so something is always displayed. */
 function backspace() {
     if(b.length > 0) {
-        console.log(b);
         if (b[0] == "0" && b[1] == ".") { 
             b.pop(); 
         }
@@ -90,7 +100,7 @@ function backspace() {
         updateDisplay();
         return;
     }
-    if (OPERATORS.includes(operator)) { // if +, -, *, /
+    if ([OP_ADD, OP_SUB, OP_MUL, OP_DIV].includes(operator)) {
         operator = undefined;
         updateDisplay();
         return;
@@ -106,6 +116,7 @@ function backspace() {
     updateDisplay();
 }
 
+/* clears the display and sets variable a back to 0 */
 function displayClear() {
     a = ["0"];
     b.length = 0;
@@ -113,12 +124,14 @@ function displayClear() {
     updateDisplay();
 }
 
+/* takes whatever variables exist and puts whatever operator exists between them
+   and then adds it to the display. */
 function updateDisplay() {
     let dispStr = "";
     dispStr += a.join("");
     dispStr += operator && operator != OP_EQU ? ` ${operator} ` : "";
     dispStr += b.join("");
-    DISPLAY.innerHTML = dispStr;
+    document.getElementById("display").innerHTML = dispStr;
 }
 
 /* button click listeners */
